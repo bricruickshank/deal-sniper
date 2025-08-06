@@ -134,8 +134,8 @@ def find_deals(prefs: UserPreferences):
         logging.info(f"Received request with preferences: {prefs}")
         all_deals = scrape_secret_flying() + scrape_the_flight_deal()
         if not all_deals:
-            logging.warning("No deals fetched from any source.")
-            raise HTTPException(status_code=502, detail="Unable to fetch any travel deals at this time.")
+            logging.warning("No deals fetched — returning empty list.")
+            return []
         matching_deals = filter_deals(all_deals, prefs)
         logging.info(f"Returning {len(matching_deals)} matching deals.")
         return matching_deals
